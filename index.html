@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauricio Bolognesi - Desarrollo Web A Medida</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0203;
+            --bg-card: #140507;
+            --red-primary: #8b0000;
+            --red-bright: #ff1e27;
+            --red-glow: #ff0015;
+            --text-main: #f5f5f5;
+            --text-muted: #b3a2a4;
+            --border-dark: #2a0a0e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #170306 50%, #050001 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            background: rgba(10, 2, 3, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-dark);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text i, .logo-text span {
+            color: var(--red-bright);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--red-bright);
+        }
+
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            background: rgba(139, 0, 0, 0.25);
+            border: 1px solid var(--red-primary);
+            color: var(--red-bright);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to right, #ffffff, #f0b0b5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 750px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-price {
+            background: linear-gradient(45deg, var(--red-primary), var(--red-bright));
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-price:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 35px var(--red-glow), 0 0 10px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(45deg, var(--red-bright), #ff4d54);
+        }
+
+        /* Showcase / Inspiración Visual Section */
+        .showcase-section {
+            padding: 4rem 2rem 5rem;
+            max-width: 1250px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .showcase-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-card:hover {
+            border-color: var(--red-bright);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .showcase-img-mock {
+            height: 200px;
+            background: #1f080b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-dark);
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .showcase-img-mock i {
+            font-size: 3rem;
+            color: var(--red-bright);
+            margin-bottom: 0.8rem;
+        }
+
+        .showcase-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .showcase-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-main);
+        }
+
+        .showcase-content p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 2rem 6rem;
+            max-width: 1250px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            justify-content: center;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 2.2rem 1.8rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .price-card:hover {
+            border-color: rgba(255, 30, 39, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .price-card.active {
+            border-color: var(--red-bright) !important;
+            background: linear-gradient(180deg, #240509 0%, var(--bg-card) 100%);
+            box-shadow: 0 0 30px rgba(255, 30, 39, 0.6), inset 0 0 15px rgba(255, 30, 39, 0.3);
+            transform: scale(1.02) translateY(-5px);
+        }
+
+        .price-card.active::before {
+            content: 'SELECCIONADO';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--red-bright);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            box-shadow: 0 0 10px var(--red-glow);
+            letter-spacing: 1px;
+        }
+
+        .card-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--red-bright);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+
+        .price-tag span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 1.8rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .features-list li i {
+            color: var(--red-bright);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .card-ideal {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.82rem;
+            color: #d1c4c6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-ideal strong {
+            color: var(--red-bright);
+        }
+
+        .select-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--red-primary);
+            background: transparent;
+            color: var(--text-main);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .price-card.active .select-btn,
+        .select-btn:hover {
+            background: var(--red-bright);
+            color: white;
+            border-color: var(--red-bright);
+            box-shadow: 0 0 15px rgba(255, 30, 39, 0.5);
+        }
+
+        /* Profile & Contact Section */
+        .profile-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(20, 5, 7, 0.9) 100%);
+            border-top: 1px solid var(--border-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .profile-info h3 {
+            font-size: 2rem;
+        }
+
+        .profile-info .title {
+            color: var(--red-bright);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .profile-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            border-color: var(--red-bright);
+            transform: translateX(5px);
+            background: rgba(139, 0, 0, 0.15);
+        }
+
+        .contact-item i {
+            font-size: 1.3rem;
+            color: var(--red-bright);
+            width: 25px;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-dark);
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            color: white;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--red-bright);
+        }
+
+        .submit-btn {
+            background: var(--red-bright);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 30, 39, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #ff000a;
+            box-shadow: 0 0 25px var(--red-glow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-dark);
+            font-size: 0.9rem;
+        }
+
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 0 0 rgba(255, 30, 39, 0.8); }
+            70% { box-shadow: 0 0 0 25px rgba(255, 30, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 30, 39, 0); }
+        }
+
+        .highlight-animation {
+            animation: pulseBorder 1.5s cubic-bezier(0.24, 0, 0.38, 1);
+        }
+
+        @media (max-width: 850px) {
+            .profile-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo-container">
+            <div class="logo-text"><i class="fa-solid fa-code"></i> MB<span>Webs</span></div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#disenos">Modelos Web</a></li>
+            <li><a href="#precios">Combos y Tarifas</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-badge">Mauricio Bolognesi — Desarrollo Web Profesional</div>
+        <h1>Páginas Web Modernas y Tiendas Online a Medida</h1>
+        <p>Impulsamos tu negocio con presencia digital efectiva: desde Landings directas con menú de servicios hasta E-commerce completos con carrito y gestión de stock por WhatsApp.</p>
+        
+        <a href="#precios" class="btn-price" id="btn-ver-precios">
+            Ver Combos y Planes <i class="fa-solid fa-arrow-down"></i>
+        </a>
+    </section>
+
+    <!-- Visual Showcase Section (Inspirado en el PDF) -->
+    <section class="showcase-section" id="disenos">
+        <div class="section-title">
+            <h2>Modelos y Estructuras Disponibles</h2>
+            <p>Inspirado en soluciones reales de alta conversión para emprendimientos y comercios</p>
+        </div>
+
+        <div class="showcase-grid">
+            <!-- Mock 1: E-commerce & Carrito -->
+            <div class="showcase-card">
+                <div class="showcase-img-mock">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span style="font-weight:700; color:var(--text-main);">E-COMMERCE & CARRITO WEB</span>
+                </div>
+                <div class="showcase-content">
+                    <h3>Catálogo Digital e Integración WhatsApp</h3>
+                    <p>Catálogo de productos con filtros, buscador por nombre, carrito de compras activo y formulario de envío directo a tu WhatsApp.</p>
+                </div>
+            </div>
+
+            <!-- Mock 2: Panel de Administración -->
+            <div class="showcase-card">
+                <div class="showcase-img-mock">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span style="font-weight:700; color:var(--text-main);">PANEL DE ADMINISTRACIÓN</span>
+                </div>
+                <div class="showcase-content">
+                    <h3>Gestión de Productos y Pedidos</h3>
+                    <p>Gestión intuitiva para agregar productos, actualizar stock, ajustar precios y consultar el historial de pedidos en tiempo real.</p>
+                </div>
+            </div>
+
+            <!-- Mock 3: Landing / Institucional -->
+            <div class="showcase-card">
+                <div class="showcase-img-mock">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span style="font-weight:700; color:var(--text-main);">LANDING Y MULTIPÁGINA</span>
+                </div>
+                <div class="showcase-content">
+                    <h3>Web Institucional / Concesionarias</h3>
+                    <p>Diseño enfocado en la imagen de marca, ubicación en mapas interactivos, secciones 'Sobre Nosotros' y botones dinámicos de contacto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="precios">
+        <div class="section-title">
+            <h2>Nuevos Combos y Tarifas</h2>
+            <p>Selecciona la solución que mejor se adapte a tus necesidades actuales</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Combo 1: Esencial -->
+            <div class="price-card" onclick="selectCombo(this, '🌿 Combo Esencial ($30.000 - $35.000)')">
+                <div>
+                    <div class="card-header">
+                        <h3>🌿 Combo Esencial</h3>
+                    </div>
+                    <div class="price-tag">$30.000 - $35.000 <span>/ ARS</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> Página de una sola sección (Landing Page)</li>
+                        <li><i class="fa-solid fa-check"></i> Listado de servicios/productos con precios</li>
+                        <li><i class="fa-solid fa-check"></i> Botón directo a WhatsApp</li>
+                        <li><i class="fa-solid fa-check"></i> Diseño responsive (Celular y PC)</li>
+                        <li><i class="fa-solid fa-check"></i> Publicación online incluida (GitHub Pages)</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card-ideal"><strong>Ideal para:</strong> Emprendedores que recién arrancan y necesitan mostrar su cartilla sin vueltas.</div>
+                    <button class="select-btn">Seleccionar Combo</button>
+                </div>
+            </div>
+
+            <!-- Combo 2: Profesional -->
+            <div class="price-card" onclick="selectCombo(this, '✨ Combo Profesional ($50.000 - $60.000)')">
+                <div>
+                    <div class="card-header">
+                        <h3>✨ Combo Profesional</h3>
+                    </div>
+                    <div class="price-tag">$50.000 - $60.000 <span>/ ARS</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> Página de inicio + hasta 4 subpáginas</li>
+                        <li><i class="fa-solid fa-check"></i> Galería de fotos organizada por sección</li>
+                        <li><i class="fa-solid fa-check"></i> Packs y combos personalizados con precios</li>
+                        <li><i class="fa-solid fa-check"></i> Botones de WhatsApp en cada sección</li>
+                        <li><i class="fa-solid fa-check"></i> Identidad visual a medida (colores, logo, tipografía)</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card-ideal"><strong>Ideal para:</strong> Negocios con varios servicios o líneas de producto que buscan mayor estructura.</div>
+                    <button class="select-btn">Seleccionar Combo</button>
+                </div>
+            </div>
+
+            <!-- Combo 3: Premium E-commerce -->
+            <div class="price-card" onclick="selectCombo(this, '🛍️ Combo Premium E-commerce ($70.000 - $80.000)')">
+                <div>
+                    <div class="card-header">
+                        <h3>🛍️ Combo Premium</h3>
+                    </div>
+                    <div class="price-tag">$70.000 - $80.000 <span>/ ARS</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> Catálogo con categorías y filtros (talles, tipos)</li>
+                        <li><i class="fa-solid fa-check"></i> Carrito de compras funcional integrativo</li>
+                        <li><i class="fa-solid fa-check"></i> Pedido automático enviado a WhatsApp con datos de envío</li>
+                        <li><i class="fa-solid fa-check"></i> Panel de administración para cargar/editar stock y precios</li>
+                        <li><i class="fa-solid fa-check"></i> Diseño de marca y experiencia completa</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card-ideal"><strong>Ideal para:</strong> Quien vende productos físicos y necesita algo cercano a una tienda online real.</div>
+                    <button class="select-btn">Seleccionar Combo</button>
+                </div>
+            </div>
+
+            <!-- Extra: Mantenimiento -->
+            <div class="price-card" onclick="selectCombo(this, '🔧 Extra: Combo Mantenimiento (desde $10.000)')">
+                <div>
+                    <div class="card-header">
+                        <h3>🔧 Mantenimiento</h3>
+                    </div>
+                    <div class="price-tag">desde $10.000 <span>/ ARS</span></div>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> Actualización periódica de precios y catálogo</li>
+                        <li><i class="fa-solid fa-check"></i> Carga mensual de nuevos productos o imágenes</li>
+                        <li><i class="fa-solid fa-check"></i> Copias de seguridad y monitoreo de funcionamiento</li>
+                        <li><i class="fa-solid fa-check"></i> Corrección de fallos y ajustes de diseño rápida</li>
+                        <li><i class="fa-solid fa-check"></i> Soporte técnico prioritario continuo</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card-ideal"><strong>Ideal para:</strong> Mantener tu sitio siempre al día, actualizado y seguro sin preocuparte.</div>
+                    <button class="select-btn">Seleccionar Combo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile & Contact Section -->
+    <section class="profile-section" id="contacto">
+        <div class="profile-container">
+            <div class="profile-info">
+                <div class="profile-header">
+                    <h3>Mauricio Bolognesi</h3>
+                    <span class="title">Desarrollador Web Freelance</span>
+                </div>
+                
+                <p>Ofrezco soluciones de desarrollo web adaptadas a tu negocio. Selecciona el combo deseado y ponte en contacto directamente para empezar.</p>
+                
+                <div class="contact-details">
+                    <a href="https://www.instagram.com/mb_desarrolo_web?stkn=ZjdoYmdjZG5ibHhx" target="_blank" class="contact-item">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>@mb_desarrolo_web</span>
+                    </a>
+                    <a href="mailto:bolognesimauricio@gmail.com" class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>bolognesimauricio@gmail.com</span>
+                    </a>
+                    <a href="https://wa.me/5493512364501" target="_blank" class="contact-item">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>3512364501</span>
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Tu Nombre</label>
+                    <input type="text" id="name" required placeholder="Ej. Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label for="selected-combo">Combo Seleccionado</label>
+                    <select id="selected-combo" required>
+                        <option value="">Selecciona un combo aquí o arriba</option>
+                        <option value="🌿 Combo Esencial ($30.000 - $35.000)">🌿 Combo Esencial ($30.000 - $35.000)</option>
+                        <option value="✨ Combo Profesional ($50.000 - $60.000)">✨ Combo Profesional ($50.000 - $60.000)</option>
+                        <option value="🛍️ Combo Premium E-commerce ($70.000 - $80.000)">🛍️ Combo Premium E-commerce ($70.000 - $80.000)</option>
+                        <option value="🔧 Extra: Combo Mantenimiento (desde $10.000)">🔧 Extra: Combo Mantenimiento (desde $10.000)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje Adicional</label>
+                    <textarea id="message" rows="3" placeholder="Cuéntame más sobre tu idea o proyecto..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar Mensaje a WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Mauricio Bolognesi - Páginas Web a Medida. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('btn-ver-precios').addEventListener('click', function(e) {
+            const pricingGrid = document.querySelector('.pricing-grid');
+            setTimeout(() => {
+                pricingGrid.classList.add('highlight-animation');
+                setTimeout(() => {
+                    pricingGrid.classList.remove('highlight-animation');
+                }, 1500);
+            }, 500);
+        });
+
+        function selectCombo(cardElement, comboName) {
+            document.querySelectorAll('.price-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            cardElement.classList.add('active');
+            const selectElement = document.getElementById('selected-combo');
+            selectElement.value = comboName;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const combo = document.getElementById('selected-combo').value;
+            const message = document.getElementById('message').value;
+
+            const text = `Hola Mauricio! Mi nombre es ${name}. Estoy interesado en contratar el servicio: ${combo}. ${message ? 'Detalles: ' + message : ''}`;
+            const encodedText = encodeURIComponent(text);
+            
+            window.open(`https://wa.me/5493512364501?text=${encodedText}`, '_blank');
+        }
+    </script>
+</body>
+</html>
